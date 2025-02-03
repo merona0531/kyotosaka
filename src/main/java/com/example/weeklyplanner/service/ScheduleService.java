@@ -29,4 +29,14 @@ public class ScheduleService {
     public void deleteSchedule(Long id) {
         scheduleRepository.deleteById(id);
     }
+
+    // 스케줄 수정 기능 추가
+    public Schedule updateSchedule(Long id, Schedule schedule) {
+        if (!scheduleRepository.existsById(id)) {
+            throw new RuntimeException("Schedule not found with id: " + id);
+        }
+
+        schedule.setId(id); // 기존 ID로 업데이트
+        return scheduleRepository.save(schedule);
+    }
 }
