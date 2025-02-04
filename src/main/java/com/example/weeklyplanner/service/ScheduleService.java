@@ -5,6 +5,7 @@ import com.example.weeklyplanner.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScheduleService {
@@ -35,8 +36,17 @@ public class ScheduleService {
         if (!scheduleRepository.existsById(id)) {
             throw new RuntimeException("Schedule not found with id: " + id);
         }
-
         schedule.setId(id); // 기존 ID로 업데이트
         return scheduleRepository.save(schedule);
+    }
+
+    // 단일 스케줄 가져오기
+    public Schedule getScheduleById(Long id) {
+        Optional<Schedule> schedule = scheduleRepository.findById(id);
+        if (schedule.isPresent()) {
+            return schedule.get();
+        } else {
+            throw new RuntimeException("Schedule not found with id: " + id);
+        }
     }
 }

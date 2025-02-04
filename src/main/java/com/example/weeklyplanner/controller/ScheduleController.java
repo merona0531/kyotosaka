@@ -4,7 +4,6 @@ import com.example.weeklyplanner.model.Schedule;
 import com.example.weeklyplanner.service.ScheduleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -20,6 +19,12 @@ public class ScheduleController {
     @GetMapping
     public List<Schedule> getAllSchedules() {
         return scheduleService.getAllSchedules();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Schedule> getScheduleById(@PathVariable Long id) {
+        Schedule schedule = scheduleService.getScheduleById(id); // 서비스 호출
+        return ResponseEntity.ok(schedule); // 데이터 반환
     }
 
     @PostMapping
